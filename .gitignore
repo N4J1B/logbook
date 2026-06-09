@@ -2,3 +2,4 @@ logbook_result.log
 ella_cookies.txt
 .env
 file/*
+!file/.gitkeep
