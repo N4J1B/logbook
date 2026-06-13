@@ -3,3 +3,5 @@ ella_cookies.txt
 .env
 file/*
 !file/.gitkeep
+*.csv
+*.txt

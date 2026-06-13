@@ -18,7 +18,20 @@ if [[ ! -f "$CSV_FILE" ]]; then
     exit 1
 fi
 
-tail -n +2 "$CSV_FILE" | while IFS=',' read -r nama uraian tanggal waktu file_path; do
+python3 - "$CSV_FILE" <<'PY' | while IFS=$'\t' read -r nama uraian tanggal waktu file_path; do
+import csv
+import sys
+
+csv_path = sys.argv[1]
+
+with open(csv_path, newline='', encoding='utf-8-sig') as csv_file:
+    reader = csv.reader(csv_file)
+    next(reader, None)
+    for row in reader:
+        if len(row) < 5:
+            continue
+        print('\t'.join(row[:5]))
+PY
 
     file_path=$(echo "$file_path" | tr -d '\r')
 
